@@ -5,6 +5,7 @@ import UserDropdow from "./UserDropdow";
 const Navbar = () => {
 
   const {user} = useAuth()
+  console.log(user)
 
     return (
         <div className="navbar bg-base-200">
