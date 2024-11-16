@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const AuthCOntext = createContext(null); 
+export const AuthContext = createContext(null); 
 
 const auth = getAuth(app);
 
@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthCOntext.Provider value={authInfo}>{children}</AuthCOntext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 
