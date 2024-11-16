@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const UserDropdow = () => {
@@ -13,7 +14,7 @@ const UserDropdow = () => {
       <div tabIndex={0} role="button">
         <div className="avatar">
           <div className=" w-10 rounded-full ">
-            <img src={`${user?.photoUrl || "/public/user.png"}`} />
+            <img src={`${user?.photoUrl || "/user.png"}`} />
           </div>
         </div>
       </div>
@@ -22,7 +23,7 @@ const UserDropdow = () => {
         className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow flex flex-col gap-2"
       >
         <li>
-          <a>Dashboard</a>
+          <Link to='/dashboard/overview'>Dashboard</Link>
         </li>
         <li>
             <button onClick={handleLogOut} className="btn btn-primary btn-outline btn-sm">Logout</button>

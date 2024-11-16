@@ -6,6 +6,9 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import DashboardLayout from "../layouts/DashboardLayout";
+import PrivateRout from "./private/PrivateRout";
+import Overview from "../pages/dashboard/Overview";
 
 export const router = createBrowserRouter([
     {
@@ -38,4 +41,14 @@ export const router = createBrowserRouter([
         },
       ]
     },
+    {
+      path: '/dashboard',
+      element: <PrivateRout><DashboardLayout/></PrivateRout>,
+      children: [
+        {
+          path: "/dashboard/overview",
+          element: <Overview/>
+        }
+      ]
+    }
   ]);
