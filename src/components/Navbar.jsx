@@ -5,7 +5,7 @@ import UserDropdow from "./UserDropdow";
 const Navbar = () => {
 
   const {user} = useAuth()
-  console.log(user)
+  // console.log(user)
 
     return (
         <div className="navbar container mx-auto">
