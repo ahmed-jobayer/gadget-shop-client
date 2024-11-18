@@ -12,48 +12,90 @@ const AddProducts = () => {
     formState: { errors },
   } = useForm();
 
-  // const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data)
+    // console.log(data);
     const title = data.title;
+    const image = data.image;
     const brand = data.brand;
-    const price = data.price;
-    const stock = data.stock;
+    const price = parseFloat(data.price);
+    const stock = parseFloat(data.stock);
     const category = data.category;
     const description = data.description;
-    const email = user.email;
-  };
+    const SellerEmail = user.email;
 
-  //   title
-  // brand
-  // price
-  // stock
-  // selleremail
-  // category
-  // description
+    const product = {
+      title,
+      image,
+      brand,
+      price,
+      stock,
+      category,
+      description,
+      SellerEmail,
+    };
+
+    const token = localStorage.getItem("access-token");
+
+    axios
+      .post("http://localhost:4000/add-products", product, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.insertedId) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Product added successfully",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+      });
+  };
 
   return (
     <div>
       <h1 className="text-center font-bold text-3xl"> Add Products</h1>
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-          {/* title */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Title</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Product Title"
-              className="input input-bordered"
-              {...register("title", { required: true })}
-            />
-            {errors.title && (
-              <p className="text-red-500 text-sm font-light">
-                Title is required
-              </p>
-            )}
+          <div className="grid grid-cols-2 gap-12">
+            {/* title */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Title</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Product Title"
+                className="input input-bordered"
+                {...register("title", { required: true })}
+              />
+              {errors.title && (
+                <p className="text-red-500 text-sm font-light">
+                  Title is required
+                </p>
+              )}
+            </div>
+            {/* image */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Image</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Product Image"
+                className="input input-bordered"
+                {...register("image", { required: true })}
+              />
+              {errors.image && (
+                <p className="text-red-500 text-sm font-light">
+                  Image is required
+                </p>
+              )}
+            </div>
           </div>
           {/* brand and category */}
           <div className="grid grid-cols-2 gap-12">
@@ -127,6 +169,23 @@ const AddProducts = () => {
                 </p>
               )}
             </div>
+          </div>
+          {/* description */}
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Description</span>
+            </label>
+            <textarea
+              type="text"
+              placeholder="Product Description"
+              className="textarea textarea-bordered"
+              {...register("description", { required: true })}
+            />
+            {errors.description && (
+              <p className="text-red-500 text-sm font-light">
+                Description is required
+              </p>
+            )}
           </div>
           <div className="form-control mt-6">
             <button className="btn btn-outline">Add Product</button>
