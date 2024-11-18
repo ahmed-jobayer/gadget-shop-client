@@ -1,17 +1,26 @@
+/* eslint-disable react/prop-types */
 
-const ProductCard = () => {
+const ProductCard = ({product}) => {
     return (
-        <div className="card bg-base-100 w-96 shadow-xl">
+        <div className="card bg-base-100  shadow-xl">
         <figure>
           <img
             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
             alt="Shoes" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
+          <h2 className="card-title">{product.title}</h2>
+          <div className="flex justify-between items-center">
+            <h3>{product.brand}</h3>
+            <h3>{product.category}</h3>
+          </div>
+          <div className="flex justify-between items-center">
+            <h3>{product.price}</h3>
+            <h3>{product.stock}</h3>
+          </div>
+          <p>{product.description}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+            <button className="btn btn-outline">Add to Wishlist</button>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { IoMdSearch } from "react-icons/io";
  
 const SearchBar = () => {
     return (
-        <form className="flex  gap-[2px] rounded-l-md">
+        <form className="flex  gap-[1px] rounded-l-md">
             <input type="text"
             placeholder="Search Products"
             name="search"
