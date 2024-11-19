@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { GrPowerReset } from "react-icons/gr";
 import { TbFilter } from "react-icons/tb";
 
-const FilterBar = () => {
+const FilterBar = ({setBrand, setCategory, handleReset}) => {
   return (
     <div className=" bg-gray-200 h-full min-h-screen p-4 rounded-t-lg">
       <div className="flex items-center gap-1">
@@ -10,23 +11,27 @@ const FilterBar = () => {
       </div>
       <div  className="my-4 flex flex-col gap-4">
         <div>
-          <select className="select select-bordered w-full max-w-xs">
-            <option selected value="asc">
-              Low to High
+          <select className="select select-bordered w-full max-w-xs"
+          onChange={(e) => setBrand(e.target.value)}
+          >
+            <option selected disabled>
+              Brand
             </option>
-            <option value="desc">High to Low</option>
+            <option value="">High to Low</option>
           </select>
         </div>
         <div>
-          <select className="select select-bordered w-full max-w-xs">
-            <option selected value="asc">
-              Low to High
+          <select className="select select-bordered w-full max-w-xs"
+          onChange={(e) => setCategory(e.target.value)}
+          >
+            <option selected disabled>
+              Category
             </option>
-            <option value="desc">High to Low</option>
+            <option value="">High to Low</option>
           </select>
         </div>
       </div>
-      <button className="btn btn-outline w-full text-lg"><GrPowerReset/> Reset</button>
+      <button onClick={handleReset} className="btn btn-outline w-full text-lg"><GrPowerReset/> Reset</button>
     </div>
   );
 };

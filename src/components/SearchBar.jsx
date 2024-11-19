@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { IoMdSearch } from "react-icons/io";
 
  
-const SearchBar = () => {
+const SearchBar = ({handleSearch}) => {
     return (
-        <form className="flex  gap-[1px] rounded-l-md">
+        <form onSubmit={handleSearch} className="flex  gap-[1px] rounded-l-md">
             <input type="text"
             placeholder="Search Products"
             name="search"

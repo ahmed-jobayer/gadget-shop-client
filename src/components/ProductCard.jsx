@@ -18,9 +18,9 @@ const ProductCard = ({product}) => {
             <h3>{product.price}</h3>
             <h3>{product.stock}</h3>
           </div>
-          <p>{product.description}</p>
+          <p>{product.description.length > 50 ? `${product.description.slice(0,50)} ...`: product.description}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-outline">Add to Wishlist</button>
+            <button className="btn btn-outline w-full">Add to Wishlist</button>
           </div>
         </div>
       </div>
