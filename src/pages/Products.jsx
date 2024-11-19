@@ -5,14 +5,22 @@ import SortByPrice from "../components/SortByPrice";
 import axios from "axios";
 import Loading from "./Loading";
 import ProductCard from "../components/ProductCard";
+import {
+  FaRegArrowAltCircleLeft,
+  FaRegArrowAltCircleRight,
+} from "react-icons/fa";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState('');
-  const [sort, setSort] = useState('');
-  const [brand, setBrand] = useState('');
-  const [category, setCategory] = useState('');
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  const [uniqueBrand, setUniqueBrand] = useState([]);
+  const [uniqueCategory, setUniqueCategory] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     setLoading(true);
@@ -20,15 +28,19 @@ const Products = () => {
     const fetch = async () => {
       axios
         .get(
-          `http://localhost:4000/all-products?title=${search}&sort=${sort}&brand=${brand}&category=${category}`
+          `http://localhost:4000/all-products?title=${search}&page=${page}&limit=9&sort=${sort}&brand=${brand}&category=${category}`
         )
         .then((res) => {
-          setProducts(res.data);
+          setProducts(res.data.products);
+          setUniqueBrand(res.data.brands);
+          setUniqueCategory(res.data.categories);
+          setTotalPages(Math.ceil(res.data.totalproducts / 9));
           setLoading(false);
+          console.log(res.data);
         });
     };
     fetch();
-  }, [search, sort, brand, category]);
+  }, [search, sort, brand, category, page]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -45,8 +57,15 @@ const Products = () => {
     window.location.reload();
   };
 
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setPage(newPage);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto my-4">
       <h1 className=" my-8 text-2xl font-semibold text-center">
         {" "}
         All Products
@@ -63,6 +82,8 @@ const Products = () => {
             setBrand={setBrand}
             setCategory={setCategory}
             handleReset={handleReset}
+            uniqueBrand={uniqueBrand}
+            uniqueCategory={uniqueCategory}
           />
         </div>
         <div className="col-span-10">
@@ -83,6 +104,17 @@ const Products = () => {
               )}
             </>
           )}
+          <div className="flex justify-center items-center gap-2 my-8 w-full">
+            <button disabled={ page ===1} className="btn btn-outline text-xl" onClick={() => handlePageChange(page - 1)}>
+              <FaRegArrowAltCircleLeft />
+            </button>
+            <p>
+              Page {page} of {totalPages}
+            </p>
+            <button className="btn btn-outline text-xl" onClick={() => handlePageChange(page + 1)}>
+              <FaRegArrowAltCircleRight />
+            </button>
+          </div>
         </div>
       </div>
     </div>
